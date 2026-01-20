@@ -30,10 +30,10 @@ public class AttendanceTracker {
         // ===== INPUT FIELDS =====
         JTextField nameField = new JTextField();
 
-        String[] courses = { "-- Select Course --", "BSIT", "BSCS", "BSIS" };
+        String[] courses = { " Select Course ", "BSIT", "BSCS", "BSIS" };
         JComboBox<String> courseBox = new JComboBox<>(courses);
 
-        String[] years = { "-- Select Year --", "1st Year", "2nd Year", "3rd Year", "4th Year" };
+        String[] years = { " Select Year ", "1st Year", "2nd Year", "3rd Year", "4th Year" };
         JComboBox<String> yearBox = new JComboBox<>(years);
 
         JTextField timeField = new JTextField();
