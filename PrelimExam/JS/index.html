@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Records · Academic System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Animated Background -->
+    <div class="bg-pattern"></div>
+    <div class="bg-gradient"></div>
+
+    <div class="app-container">
+      <!-- Header Section -->
+      <header class="header">
+        <div class="header-content">
+          <div class="header-badge">Academic System</div>
+          <h1 class="header-title">
+            <span class="title-main">Student Records</span>
+            <span class="title-sub">Developed by: Ashton B. Begino</span>
+          </h1>
+          <div class="header-stats">
+            <div class="stat-item">
+              <div class="stat-number" id="totalRecords">0</div>
+              <div class="stat-label">Total Records</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <div class="stat-number" id="activeSession">Active</div>
+              <div class="stat-label">Session Status</div>
+            </div>
+          </div>
+        </div>
+        <!-- Programmer Identifier: [YOUR FULL NAME] - [YOUR STUDENT ID] -->
+      </header>
+
+      <!-- Main Content Grid -->
+      <div class="content-grid">
+        <!-- Add Record Card -->
+        <section class="card add-card">
+          <div class="card-header">
+            <h2 class="card-title">
+              <span class="icon">+</span>
+              Add New Record
+            </h2>
+            <div class="card-subtitle">Enter student information</div>
+          </div>
+
+          <form id="studentForm" class="student-form">
+            <div class="form-grid">
+              <!-- Student ID -->
+              <div class="form-field">
+                <label for="studentID" class="field-label">Student ID</label>
+                <input
+                  type="text"
+                  id="studentID"
+                  class="field-input"
+                  placeholder="000000000"
+                  required
+                />
+              </div>
+
+              <!-- First Name -->
+              <div class="form-field">
+                <label for="firstName" class="field-label">First Name</label>
+                <input
+                  type="text"
+                  id="firstName"
+                  class="field-input"
+                  placeholder="firstName"
+                  required
+                />
+              </div>
+
+              <!-- Last Name -->
+              <div class="form-field">
+                <label for="lastName" class="field-label">Last Name</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  class="field-input"
+                  placeholder="lastName"
+                  required
+                />
+              </div>
+
+              <!-- Lab Work 1 -->
+              <div class="form-field">
+                <label for="labWork1" class="field-label">Lab Work 1</label>
+                <input
+                  type="number"
+                  id="labWork1"
+                  class="field-input"
+                  placeholder="0-100"
+                  min="0"
+                  max="100"
+                  oninput="clampGrade(this)"
+                />
+              </div>
+
+              <!-- Lab Work 2 -->
+              <div class="form-field">
+                <label for="labWork2" class="field-label">Lab Work 2</label>
+                <input
+                  type="number"
+                  id="labWork2"
+                  class="field-input"
+                  placeholder="0-100"
+                  min="0"
+                  max="100"
+                  oninput="clampGrade(this)"
+                />
+              </div>
+
+              <!-- Lab Work 3 -->
+              <div class="form-field">
+                <label for="labWork3" class="field-label">Lab Work 3</label>
+                <input
+                  type="number"
+                  id="labWork3"
+                  class="field-input"
+                  placeholder="0-100"
+                  min="0"
+                  max="100"
+                  oninput="clampGrade(this)"
+                />
+              </div>
+
+              <!-- Prelim Exam -->
+              <div class="form-field">
+                <label for="prelimExam" class="field-label">Prelim Exam</label>
+                <input
+                  type="number"
+                  id="prelimExam"
+                  class="field-input"
+                  placeholder="0-100"
+                  min="0"
+                  max="100"
+                  oninput="clampGrade(this)"
+                />
+              </div>
+
+              <!-- Attendance -->
+              <div class="form-field">
+                <label for="attendance" class="field-label">Attendance</label>
+                <input
+                  type="number"
+                  id="attendance"
+                  class="field-input"
+                  placeholder="0-100"
+                  min="0"
+                  max="100"
+                  oninput="clampGrade(this)"
+                />
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">
+                <span class="btn-icon">✓</span>
+                Add Record
+              </button>
+              <button type="reset" class="btn btn-secondary">
+                <span class="btn-icon">↻</span>
+                Clear Form
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Records Table Card -->
+        <section class="card table-card">
+          <div class="card-header">
+            <h2 class="card-title">
+              <span class="icon">📊</span>
+              All Records
+            </h2>
+            <div class="card-subtitle">
+              <span id="recordCount">0</span> students enrolled
+            </div>
+          </div>
+
+          <div class="table-wrapper">
+            <table class="records-table" id="studentTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Lab 1</th>
+                  <th>Lab 2</th>
+                  <th>Lab 3</th>
+                  <th>Exam</th>
+                  <th>Attend.</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody">
+                <!-- Data populated by JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-brand">
+            <div class="footer-logo">SR</div>
+            <div class="footer-text">
+              <div class="footer-title">Student Records</div>
+              <div class="footer-subtitle">Academic Management</div>
+            </div>
+          </div>
+          <div class="footer-divider"></div>
+          <div class="footer-info">
+            <p class="programmer-id">
+              Programmer Identifier: [Ashton B. Begino] - [25-1444-956]
+            </p>
+            <p class="footer-year">2026 Academic System</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Success Toast Notification -->
+    <div id="toast" class="toast">
+      <div class="toast-icon">✓</div>
+      <div class="toast-message"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
